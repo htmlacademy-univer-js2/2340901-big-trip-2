@@ -1,8 +1,8 @@
-import { createElement } from '../render.js';
+import { createElement } from '../render';
 
 const createTripListTemplate = () => (
   `<ul class="trip-events__list">
-    </ul>`
+  </ul>`
 );
 
 class TripListView {
