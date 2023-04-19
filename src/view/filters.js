@@ -6,7 +6,7 @@ const createFiltersTemplate = () => (
       <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="everything" checked>
       <label class="trip-filters__filter-label" for="filter-everything">Everything</label>
     </div>
-    
+
     <div class="trip-filters__filter">
       <input id="filter-future" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="future">
       <label class="trip-filters__filter-label" for="filter-future">Future</label>
@@ -21,20 +21,21 @@ const createFiltersTemplate = () => (
   </form>`
 );
 
+
 class FiltersView {
-  getTemplate() {
+  get _template() {
     return createFiltersTemplate();
   }
 
-  getElement() {
-    if(!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if(!this._element) {
+      this._element = createElement(this._template);
     }
-    return this.element;
+    return this._element;
   }
 
   removeElement() {
-    this.element = null;
+    this._element = null;
   }
 }
 
