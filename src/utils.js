@@ -17,15 +17,13 @@ const filter = {
   [FILTERS_TYPE.EVERYTHING]: (points) => points,
   [FILTERS_TYPE.FUTURE]: (points) => points.filter((point) => !isPointExpired(point.dateFrom)),
   [FILTERS_TYPE.PAST]: (points) => points.filter((point) => isPointExpired(point.dateTo)),
-}
+};
 
-const sort = {
+const sorting = {
   [SORTED_TYPE.DAY]: (points) => points.sort((prev,next) => getDifference(next.dateFrom, prev.dateFrom, '')),
-  [SORTED_TYPE.EVENT]: (points) => null,
   [SORTED_TYPE.TIME]: (points) => points.sort((prev, next) => getDifference(prev.dateFrom, prev.dateTo, 'minute') - getDifference(next.dateFrom, next.dateTo, 'minute')),
   [SORTED_TYPE.PRICE]: (points) => points.sort((prev, next) => prev.basePrice - next.basePrice),
-  [SORTED_TYPE.OFFERS]: (points) => null
 
-}
+};
 
-export {getRandomInteger, humanizeDate, humanizeTime, getDifference, filter, sort};
+export {getRandomInteger, humanizeDate, humanizeTime, getDifference, filter, sorting};

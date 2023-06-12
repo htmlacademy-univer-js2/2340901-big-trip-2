@@ -5,7 +5,7 @@ import NewPointView from '../view/new-point';
 import SortView from '../view/sort';
 import TripListView from '../view/trip-list';
 import NoPoint from '../view/no-points';
-import generateSort from '../fish-data/sort';
+import generateSorting from '../fish-data/sort';
 
 class TripPresenter {
   constructor(container, pointsModel) {
@@ -25,7 +25,7 @@ class TripPresenter {
       render(new NoPoint(), this._container);
     }
     else {
-      const sorting = generateSort(this._pointsModel.points)
+      const sorting = generateSorting(this._pointsModel.points);
       render(new SortView(sorting), this._container);
       render(this._tripListComponent, this._container);
 
@@ -67,12 +67,12 @@ class TripPresenter {
     });
 
     pointEditComponent.setFormSubmitHandler(() => {
-      replaceFormToPoint()
+      replaceFormToPoint();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
     pointEditComponent.setButtonClickHandler(() => {
-      replaceFormToPoint()
+      replaceFormToPoint();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 

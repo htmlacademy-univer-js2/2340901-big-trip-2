@@ -97,7 +97,7 @@ const createPointTemplate = (point, currentOffers, currentDesctination) => {
 
 class PointView extends AbstractView {
   constructor(point, offers, destination) {
-    super()
+    super();
     this.point = point;
     this.offers = offers;
     this.destination = destination;
@@ -108,14 +108,14 @@ class PointView extends AbstractView {
   }
 
   setEditClickHandler = (callback) => {
-    this._callback.click = callback
+    this._callback.click = callback;
     this.element.addEventListener('click', this._editClickHandler);
-  }
+  };
 
   _editClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.click();
-  }
+  };
 }
 
 export default PointView;
