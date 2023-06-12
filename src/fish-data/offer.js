@@ -49,5 +49,4 @@ const offersByType = [
   }
 ];
 
-
 export default offersByType;
