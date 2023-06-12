@@ -16,9 +16,9 @@ class PointsModel {
 
   getOffers(point) {
     if (point) {
-        return this._offers.find((x) => x.type === point['type'])['offers'];
+      return this._offers.find((x) => x.type === point['type'])['offers'];
     }
-    return this._offers;  
+    return this._offers;
   }
 
   getDestination(point) {
