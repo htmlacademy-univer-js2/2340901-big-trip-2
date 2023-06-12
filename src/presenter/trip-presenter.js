@@ -72,8 +72,8 @@ class TripPresenter {
       this._handleModeChange);
 
     pointPresenter.init(point);
-    this._pointPresenter.set(point.id, pointPresenter)
-  };
+    this._pointPresenter.set(point.id, pointPresenter);
+  }
 
   _clearPointList = () => {
     this._pointPresenter
