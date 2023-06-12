@@ -7,7 +7,7 @@ import FirstMessageView from '../view/no-points';
 import generateSorting from '../fish-data/sort';
 import PointPresenter from './point-presenter.js';
 
-class TripPresenter { 
+class TripPresenter {
   constructor(container, pointsModel) {
     this._tripListComponent = new TripListView();
     this._container = container;
@@ -36,7 +36,7 @@ class TripPresenter {
 
   _renderSort = () => {
     const sorting = generateSorting(this._pointsModel.points);
-      render(new SortView(sorting), this._container);
+    render(new SortView(sorting), this._container);
   };
 
   _renderNewPoint = () => {
@@ -62,17 +62,17 @@ class TripPresenter {
 
     this._renderSort();
     this._renderTripList();
-  };
+  }
 
   _renderPoint(point) {
     const pointPresenter = new PointPresenter(
-      this._tripListComponent.element, 
+      this._tripListComponent.element,
       this._pointsModel,
       this._handlePointChange,
       this._handleModeChange);
 
     pointPresenter.init(point);
-    this._pointPresenter.set(point.id, pointPresenter);
+    this._pointPresenter.set(point.id, pointPresenter)
   };
 
   _clearPointList = () => {

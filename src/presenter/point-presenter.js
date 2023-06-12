@@ -5,7 +5,7 @@ import EditPointView from '../view/edit-point';
 const Mode = {
   DEFAULT: 'DEFAULT',
   EDITING: 'EDITING'
-}
+};
 
 class PointPresenter {
   constructor (tripList, points, changeData, modeChange) {
@@ -22,13 +22,13 @@ class PointPresenter {
   }
 
   init = (point) => {
-    this._point = point
+    this._point = point;
 
-    const prevPointComponent = this._pointComponent
-    const prevPointEditComponent = this._pointEditComponent
+    const prevPointComponent = this._pointComponent;
+    const prevPointEditComponent = this._pointEditComponent;
 
-    this._offers = this._pointsModel.getOffers(this._point)
-    this._destination = this._pointsModel.getDestination(this._point)
+    this._offers = this._pointsModel.getOffers(this._point);
+    this._destination = this._pointsModel.getDestination(this._point);
     this._pointComponent = new PointView(this._point, this._offers, this._destination);
     this._pointEditComponent = new EditPointView(this._point, this._offers, this._destination);
 
@@ -40,22 +40,22 @@ class PointPresenter {
 
     this._pointEditComponent.setButtonClickHandler(this._handleButtonlick);
 
-    if (prevPointComponent == null || prevPointEditComponent === null) {
-        render(this._pointComponent, this._tripListComponent);
-        return;
+    if (prevPointComponent === null || prevPointEditComponent === null) {
+      render(this._pointComponent, this._tripListComponent);
+      return;
     }
 
     if (this._mode === Mode.DEFAULT) {
-        replace(this._pointComponent, prevPointComponent);
+      replace(this._pointComponent, prevPointComponent);
     }
 
     if (this._mode === Mode.EDITING) {
-        replace(this._pointEditComponent, prevPointEditComponent);
+      replace(this._pointEditComponent, prevPointEditComponent);
     }
 
     remove(prevPointComponent);
     remove(prevPointEditComponent);
-  }
+  };
 
   destroy = () => {
     remove(this._pointComponent);
