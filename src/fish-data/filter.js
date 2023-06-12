@@ -1,4 +1,4 @@
-import { filter } from "../utils";
+import { filter } from '../utils';
 
 const generateFilter = (tasks) => Object.entries(filter).map(
   ([filterName, filterTasks]) => ({
@@ -6,4 +6,5 @@ const generateFilter = (tasks) => Object.entries(filter).map(
     count: filterTasks(tasks).length,
   }),
 );
+
 export default generateFilter;
