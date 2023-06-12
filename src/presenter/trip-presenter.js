@@ -1,18 +1,19 @@
-import { render, replace} from '../framework/render';
-import PointView from '../view/point';
-import EditPointView from '../view/edit-point';
+import { render} from '../framework/render';
+import { updateItem } from '../utils';
 import NewPointView from '../view/new-point';
 import SortView from '../view/sort';
 import TripListView from '../view/trip-list';
-import NoPoint from '../view/no-points';
+import FirstMessageView from '../view/no-points';
 import generateSorting from '../fish-data/sort';
+import PointPresenter from './point-presenter.js';
 
-class TripPresenter {
+class TripPresenter { 
   constructor(container, pointsModel) {
     this._tripListComponent = new TripListView();
     this._container = container;
     this._pointsModel = pointsModel;
     this._listPoints = [];
+    this._pointPresenter = new Map();
   }
 
   init() {
@@ -20,64 +21,65 @@ class TripPresenter {
     this._renderTrip();
   }
 
+  _handlePointChange = (updatedPoint) => {
+    this._listPoints = updateItem(this._listPoints, updatedPoint);
+    this._pointPresenter.get(updatedPoint.id).init(updatedPoint);
+  };
+
+  _handleModeChange = () => {
+    this._pointPresenter.forEach((presenter) => presenter.resetView());
+  };
+
+  _renderFirstMessage = () => {
+    render(new FirstMessageView(), this._container);
+  };
+
+  _renderSort = () => {
+    const sorting = generateSorting(this._pointsModel.points);
+      render(new SortView(sorting), this._container);
+  };
+
+  _renderNewPoint = () => {
+    render(new NewPointView(this._pointsModel.getOffers(),
+      this._pointsModel.getDestination()), this._tripListComponent.element);
+  };
+
+  _renderPoints = () => {
+    this._listPoints
+      .forEach((point) => this._renderPoint(point));
+  };
+
+  _renderTripList = () => {
+    render(this._tripListComponent, this._container);
+    this._renderPoints();
+  };
+
   _renderTrip() {
     if (this._listPoints.length === 0) {
-      render(new NoPoint(), this._container);
+      this._renderFirstMessage();
+      return;
     }
-    else {
-      const sorting = generateSorting(this._pointsModel.points);
-      render(new SortView(sorting), this._container);
-      render(this._tripListComponent, this._container);
 
-      render(new NewPointView(this._pointsModel.getOffers(),
-        this._pointsModel.getDestination()), this._tripListComponent.element);
+    this._renderSort();
+    this._renderTripList();
+  };
 
-      for (let i = 0; i < this._listPoints.length; i++) {
-        const currentPoint = this._listPoints[i];
-        const curretnOffers = this._pointsModel.getOffers(currentPoint);
-        const currentDesctination = this._pointsModel.getDestination(currentPoint);
-        this._renderPoint(currentPoint, curretnOffers, currentDesctination);
-      }
-    }
-  }
+  _renderPoint(point) {
+    const pointPresenter = new PointPresenter(
+      this._tripListComponent.element, 
+      this._pointsModel,
+      this._handlePointChange,
+      this._handleModeChange);
 
-  _renderPoint(point, offers, destination) {
-    const pointComponent = new PointView(point, offers, destination);
-    const pointEditComponent = new EditPointView(point, offers, destination);
+    pointPresenter.init(point);
+    this._pointPresenter.set(point.id, pointPresenter);
+  };
 
-    const replacePointToForm = () => {
-      replace(pointEditComponent, pointComponent);
-    };
-
-    const replaceFormToPoint = () => {
-      replace(pointComponent, pointEditComponent);
-    };
-
-    const onEscKeyDown = (evt) => {
-      if (evt.key === 'Escape' || evt.key === 'Esc') {
-        evt.preventDefault();
-        replaceFormToPoint();
-        document.removeEventListener('keydown', onEscKeyDown);
-      }
-    };
-
-    pointComponent.setEditClickHandler(() => {
-      replacePointToForm();
-      document.addEventListener('keydown', onEscKeyDown);
-    });
-
-    pointEditComponent.setFormSubmitHandler(() => {
-      replaceFormToPoint();
-      document.removeEventListener('keydown', onEscKeyDown);
-    });
-
-    pointEditComponent.setButtonClickHandler(() => {
-      replaceFormToPoint();
-      document.removeEventListener('keydown', onEscKeyDown);
-    });
-
-    return render(pointComponent, this._tripListComponent.element);
-  }
+  _clearPointList = () => {
+    this._pointPresenter
+      .forEach((presenter) => presenter.destroy());
+    this._pointPresenter.clear();
+  };
 }
 
 export default TripPresenter;
