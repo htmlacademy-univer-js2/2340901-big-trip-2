@@ -43,7 +43,7 @@ class SortView extends AbstractView {
   #sortTypeChangeHandler = (evt) => {
     if (!evt.target.dataset.sortType) {
       return;
-    } 
+    }
 
     evt.preventDefault();
     this._callback.sortTypeChange(evt.target.dataset.sortType);

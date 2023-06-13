@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { FILTERS_TYPE, SORTED_TYPE } from './const';
+import { FILTERS_TYPE } from './const';
 
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
