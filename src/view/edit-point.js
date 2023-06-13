@@ -11,7 +11,6 @@ import 'flatpickr/dist/flatpickr.min.css';
 const createEditPointTemplate = (point, currentOffers, currentDestination) => {
   const {
     type,
-    basePrice,
     dateFrom,
     dateTo,
     offers} = point;
@@ -263,8 +262,8 @@ class EditPointView extends AbstractStatefulView{
     this._destination = this._prevDestination;
     this.updateElement(
       EditPointView.parsePointToState(point)
-    )
-  }
+    );
+  };
 
   removeElement = () => {
     super.removeElement();

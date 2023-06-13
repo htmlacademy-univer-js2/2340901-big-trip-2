@@ -23,10 +23,10 @@ const getFinalPrice = (currentOffers, point) => {
   let finalPrice = point.basePrice;
   point.offers.forEach((id) => {
     finalPrice += currentOffers[id - 1]['price'];
-  })
+  });
 
   return finalPrice;
-}
+};
 
 const sortByDay = (points) => points.sort((prev,next) => getDifference(next.dateFrom, prev.dateFrom, ''));
 const sortByTime = (points) => points.sort((prev, next) => getDifference(prev.dateFrom, prev.dateTo, 'second') - getDifference(next.dateFrom, next.dateTo, 'second'));
@@ -34,7 +34,7 @@ const sortByPrice = (pointsModel) => pointsModel.points.sort((prev, next) => {
   const prevFinalPrice = getFinalPrice(pointsModel.getOffers(prev), prev);
   const nextFinalPrice = getFinalPrice(pointsModel.getOffers(next), next);
   return prevFinalPrice - nextFinalPrice;
-})
+});
 const updateItem = (items, update) => items.map((item) => item.id === update.id ? update : item);
 
 export {getRandomInteger, humanizeDate, humanizeTime, getDifference, getFinalPrice, filter, sortByDay, sortByPrice, sortByTime, updateItem};

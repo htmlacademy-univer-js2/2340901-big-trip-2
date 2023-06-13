@@ -4,7 +4,6 @@ import { humanizeDate, humanizeTime, getDifference, getFinalPrice } from '../uti
 const createPointTemplate = (point, currentOffers, currentDesctination) => {
   const {
     type,
-    basePrice,
     dateFrom,
     dateTo,
     isFavorite,
