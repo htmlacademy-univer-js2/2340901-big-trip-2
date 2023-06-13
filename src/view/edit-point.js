@@ -23,8 +23,7 @@ const createEditPointTemplate = (point, currentOffers, currentDestination) => {
     return '';
   };
 
-  const getTemplateOffer = (offer) => {
-    return(
+  const getTemplateOffer = (offer) => (
       `<div class="event__offer-selector">
         <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-${offer['id']}" type="checkbox" name="event-offer-comfort" ${offers.find((x) => x === offer['id'])? 'checked': '' }>
         <label class="event__offer-label" for="event-offer-comfort-${offer['id']}">
@@ -32,8 +31,8 @@ const createEditPointTemplate = (point, currentOffers, currentDestination) => {
         &plus;&euro;&nbsp;
         <span class="event__offer-price">${offer['price']}</span>
         </label>
-      </div>`);
-  };
+      </div>`
+  );
 
 
   const createOffersElement = () => {
@@ -217,7 +216,7 @@ class EditPointView extends AbstractStatefulView{
   };
 
   _destinationChangeHandler = (evt) => {
-    evt.preventDefault()
+    evt.preventDefault();
     const currentCity = evt.target.value;
     const currentId = CITIES.find((x) => x.city === currentCity)['id'];
     this._destination = destinations.find((x) => x.id === currentId);
