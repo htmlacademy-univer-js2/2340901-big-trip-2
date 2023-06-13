@@ -24,14 +24,14 @@ const createEditPointTemplate = (point, currentOffers, currentDestination) => {
   };
 
   const getTemplateOffer = (offer) => (
-      `<div class="event__offer-selector">
-        <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-${offer['id']}" type="checkbox" name="event-offer-comfort" ${offers.find((x) => x === offer['id'])? 'checked': '' }>
-        <label class="event__offer-label" for="event-offer-comfort-${offer['id']}">
-        <span class="event__offer-title">${offer['title']}</span>
-        &plus;&euro;&nbsp;
-        <span class="event__offer-price">${offer['price']}</span>
-        </label>
-      </div>`
+    `<div class="event__offer-selector">
+      <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-${offer['id']}" type="checkbox" name="event-offer-comfort" ${offers.find((x) => x === offer['id'])? 'checked': '' }>
+      <label class="event__offer-label" for="event-offer-comfort-${offer['id']}">
+      <span class="event__offer-title">${offer['title']}</span>
+      &plus;&euro;&nbsp;
+      <span class="event__offer-price">${offer['price']}</span>
+      </label>
+    </div>`
   );
 
 
